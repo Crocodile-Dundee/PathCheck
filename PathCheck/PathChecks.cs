@@ -83,20 +83,25 @@ namespace PathCheck
             AnalyseResultTable.Columns.Add("ElementLength", typeof(int));
             AnalyseResultTable.Columns.Add("ElementState", typeof(ElementState));
 
-            // Table of elements
-            DataTable elementTable = GetElementTable(selectedDir);
+            // Reset counts
+            TotalElementsCount++;
+            CriticalElementsCount++;
+            ExceededElementsCount++;
 
+            // Table of elements
+            GetAllElemnts(selectedDir);
 
             // Loop through all elements in the list and fill data table
-            for (int i = 0; i < elementTable.Rows.Count; i++)
+            for (int i = 0; i < AnalyseResultTable.Rows.Count; i++)
             {
                 ElementState state;
-                if (elementTable.Rows[i][1].ToString().Length < CriticalLength)
+
+                if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < CriticalLength)
                 {
                     state = ElementState.OK;
                 }
-                else if ((elementTable.Rows[i][1].ToString().Length >= CriticalLength) 
-                      && (elementTable.Rows[i][1].ToString().Length < ExceededLength)) 
+                else if ((Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= CriticalLength) 
+                      && (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < ExceededLength)) 
                 {
                     state = ElementState.Critical;
                 }
@@ -105,33 +110,33 @@ namespace PathCheck
                     state = ElementState.Exceeded;
                 }
 
-                AnalyseResultTable.Rows.Add(elementTable.Rows[i][0].ToString(), 
-                                            elementTable.Rows[i][1].ToString(), 
-                                            elementTable.Rows[i][1].ToString().Length, 
-                                            state);
+                AnalyseResultTable.Rows[i][3] = state;
             }
 
             return true;
         }
 
 
-        private static DataTable GetElementTable(string selectedDir)
+        private static void GetAllElemnts(string selectedDir)
         {
-            // Config element table
-            DataTable elementTable = new DataTable();
-            elementTable.Columns.Add("ElementType", typeof(ElementType));
-            elementTable.Columns.Add("ElementPath", typeof(string));
-
             string[] directories = Directory.GetDirectories(selectedDir);
 
             foreach (string directory in directories)
             {
-                elementTable.Rows.Add(ElementType.Directory, directory.ToString());
-                GetElementTable(directory);
-            }
+                AnalyseResultTable.Rows.Add(ElementType.Directory, directory, directory.Length, null);
+                TotalElementsCount++;
 
-            return elementTable;
+                string[] files = Directory.GetFiles(directory);
+                foreach(string file in files)
+                {
+                    AnalyseResultTable.Rows.Add(ElementType.Directory, file, file.Length, null);
+                    TotalElementsCount++;
+                }
+
+                GetAllElemnts(directory);
+            }
         }
+
 
     }
 }

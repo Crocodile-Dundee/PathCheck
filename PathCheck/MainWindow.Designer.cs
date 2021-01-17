@@ -43,13 +43,20 @@ namespace PathCheck
             this.lbl_ShowCritical = new System.Windows.Forms.Label();
             this.btn_Update = new System.Windows.Forms.Button();
             this.fld_Browser = new System.Windows.Forms.FolderBrowserDialog();
-            this.sst_Status = new System.Windows.Forms.StatusStrip();
-            this.sst_Status_TotalElements = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sst_Status_ExceededElements = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sst_Status_WarningElements = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbl_chars1 = new System.Windows.Forms.Label();
+            this.lbl_chars0 = new System.Windows.Forms.Label();
+            this.lbl_Total_Tag = new System.Windows.Forms.Label();
+            this.lbl_Critical_Tag = new System.Windows.Forms.Label();
+            this.lbl_Exceeded_Tag = new System.Windows.Forms.Label();
+            this.lbl_Elements = new System.Windows.Forms.Label();
+            this.lbl_Total_Count = new System.Windows.Forms.Label();
+            this.lbl_Critical_Count = new System.Windows.Forms.Label();
+            this.lbl_Exceeded_Count = new System.Windows.Forms.Label();
+            this.opt_LimitedOnly = new System.Windows.Forms.RadioButton();
+            this.opt_ExceededOnly = new System.Windows.Forms.RadioButton();
+            this.opt_AllElements = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ExceededPathLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CriticalPathLength)).BeginInit();
-            this.sst_Status.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_SelectedDir
@@ -57,16 +64,16 @@ namespace PathCheck
             this.lbl_SelectedDir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_SelectedDir.Location = new System.Drawing.Point(12, 37);
             this.lbl_SelectedDir.Name = "lbl_SelectedDir";
-            this.lbl_SelectedDir.Size = new System.Drawing.Size(1021, 29);
+            this.lbl_SelectedDir.Size = new System.Drawing.Size(1208, 29);
             this.lbl_SelectedDir.TabIndex = 0;
             this.lbl_SelectedDir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btn_SelectDir
             // 
             this.btn_SelectDir.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_SelectDir.Location = new System.Drawing.Point(1039, 37);
+            this.btn_SelectDir.Location = new System.Drawing.Point(1226, 36);
             this.btn_SelectDir.Name = "btn_SelectDir";
-            this.btn_SelectDir.Size = new System.Drawing.Size(31, 31);
+            this.btn_SelectDir.Size = new System.Drawing.Size(32, 31);
             this.btn_SelectDir.TabIndex = 1;
             this.btn_SelectDir.Text = "···";
             this.btn_SelectDir.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -90,9 +97,9 @@ namespace PathCheck
             this.col_Length,
             this.col_State});
             this.ltv_PathElements.HideSelection = false;
-            this.ltv_PathElements.Location = new System.Drawing.Point(12, 124);
+            this.ltv_PathElements.Location = new System.Drawing.Point(12, 74);
             this.ltv_PathElements.Name = "ltv_PathElements";
-            this.ltv_PathElements.Size = new System.Drawing.Size(1058, 495);
+            this.ltv_PathElements.Size = new System.Drawing.Size(1070, 667);
             this.ltv_PathElements.TabIndex = 3;
             this.ltv_PathElements.UseCompatibleStateImageBehavior = false;
             this.ltv_PathElements.View = System.Windows.Forms.View.Details;
@@ -104,7 +111,7 @@ namespace PathCheck
             // col_Path
             // 
             this.col_Path.Text = "Path";
-            this.col_Path.Width = 800;
+            this.col_Path.Width = 790;
             // 
             // col_Length
             // 
@@ -118,7 +125,7 @@ namespace PathCheck
             // 
             // nud_ExceededPathLength
             // 
-            this.nud_ExceededPathLength.Location = new System.Drawing.Point(181, 90);
+            this.nud_ExceededPathLength.Location = new System.Drawing.Point(1091, 108);
             this.nud_ExceededPathLength.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -141,7 +148,7 @@ namespace PathCheck
             // 
             // nud_CriticalPathLength
             // 
-            this.nud_CriticalPathLength.Location = new System.Drawing.Point(517, 90);
+            this.nud_CriticalPathLength.Location = new System.Drawing.Point(1091, 177);
             this.nud_CriticalPathLength.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -165,76 +172,162 @@ namespace PathCheck
             // lbl_ExccededPathLength
             // 
             this.lbl_ExccededPathLength.AutoSize = true;
-            this.lbl_ExccededPathLength.Location = new System.Drawing.Point(12, 92);
+            this.lbl_ExccededPathLength.Location = new System.Drawing.Point(1089, 85);
             this.lbl_ExccededPathLength.Name = "lbl_ExccededPathLength";
-            this.lbl_ExccededPathLength.Size = new System.Drawing.Size(296, 20);
+            this.lbl_ExccededPathLength.Size = new System.Drawing.Size(119, 20);
             this.lbl_ExccededPathLength.TabIndex = 6;
-            this.lbl_ExccededPathLength.Text = "Show as exceeded from:                       chars";
+            this.lbl_ExccededPathLength.Text = "Exceeded length";
             // 
             // lbl_ShowCritical
             // 
             this.lbl_ShowCritical.AutoSize = true;
-            this.lbl_ShowCritical.Location = new System.Drawing.Point(368, 92);
+            this.lbl_ShowCritical.Location = new System.Drawing.Point(1089, 154);
             this.lbl_ShowCritical.Name = "lbl_ShowCritical";
-            this.lbl_ShowCritical.Size = new System.Drawing.Size(273, 20);
+            this.lbl_ShowCritical.Size = new System.Drawing.Size(101, 20);
             this.lbl_ShowCritical.TabIndex = 7;
-            this.lbl_ShowCritical.Text = "Show as critical from                       chars";
+            this.lbl_ShowCritical.Text = "Critical length";
             // 
             // btn_Update
             // 
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_Update.Location = new System.Drawing.Point(958, 87);
+            this.btn_Update.Location = new System.Drawing.Point(1088, 710);
             this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(112, 31);
+            this.btn_Update.Size = new System.Drawing.Size(170, 31);
             this.btn_Update.TabIndex = 8;
             this.btn_Update.Text = "Update";
             this.btn_Update.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_Update.UseVisualStyleBackColor = true;
             // 
-            // sst_Status
+            // lbl_chars1
             // 
-            this.sst_Status.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.sst_Status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sst_Status_TotalElements,
-            this.sst_Status_ExceededElements,
-            this.sst_Status_WarningElements});
-            this.sst_Status.Location = new System.Drawing.Point(0, 627);
-            this.sst_Status.Name = "sst_Status";
-            this.sst_Status.Size = new System.Drawing.Size(1082, 26);
-            this.sst_Status.SizingGrip = false;
-            this.sst_Status.TabIndex = 9;
-            this.sst_Status.Text = "sst_Status";
+            this.lbl_chars1.AutoSize = true;
+            this.lbl_chars1.Location = new System.Drawing.Point(1177, 110);
+            this.lbl_chars1.Name = "lbl_chars1";
+            this.lbl_chars1.Size = new System.Drawing.Size(43, 20);
+            this.lbl_chars1.TabIndex = 10;
+            this.lbl_chars1.Text = "chars";
             // 
-            // sst_Status_TotalElements
+            // lbl_chars0
             // 
-            this.sst_Status_TotalElements.AutoSize = false;
-            this.sst_Status_TotalElements.Name = "sst_Status_TotalElements";
-            this.sst_Status_TotalElements.Size = new System.Drawing.Size(200, 20);
-            this.sst_Status_TotalElements.Text = "Total Elements: ---";
-            this.sst_Status_TotalElements.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_chars0.AutoSize = true;
+            this.lbl_chars0.Location = new System.Drawing.Point(1177, 179);
+            this.lbl_chars0.Name = "lbl_chars0";
+            this.lbl_chars0.Size = new System.Drawing.Size(43, 20);
+            this.lbl_chars0.TabIndex = 11;
+            this.lbl_chars0.Text = "chars";
             // 
-            // sst_Status_ExceededElements
+            // lbl_Total_Tag
             // 
-            this.sst_Status_ExceededElements.AutoSize = false;
-            this.sst_Status_ExceededElements.Name = "sst_Status_ExceededElements";
-            this.sst_Status_ExceededElements.Size = new System.Drawing.Size(200, 20);
-            this.sst_Status_ExceededElements.Text = "Exceeded Elements: ---";
-            this.sst_Status_ExceededElements.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_Total_Tag.AutoSize = true;
+            this.lbl_Total_Tag.Location = new System.Drawing.Point(1088, 280);
+            this.lbl_Total_Tag.Name = "lbl_Total_Tag";
+            this.lbl_Total_Tag.Size = new System.Drawing.Size(45, 20);
+            this.lbl_Total_Tag.TabIndex = 12;
+            this.lbl_Total_Tag.Text = "Total:";
             // 
-            // sst_Status_WarningElements
+            // lbl_Critical_Tag
             // 
-            this.sst_Status_WarningElements.AutoSize = false;
-            this.sst_Status_WarningElements.Name = "sst_Status_WarningElements";
-            this.sst_Status_WarningElements.Size = new System.Drawing.Size(200, 20);
-            this.sst_Status_WarningElements.Text = "Warnings: ---";
-            this.sst_Status_WarningElements.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_Critical_Tag.AutoSize = true;
+            this.lbl_Critical_Tag.Location = new System.Drawing.Point(1088, 307);
+            this.lbl_Critical_Tag.Name = "lbl_Critical_Tag";
+            this.lbl_Critical_Tag.Size = new System.Drawing.Size(58, 20);
+            this.lbl_Critical_Tag.TabIndex = 13;
+            this.lbl_Critical_Tag.Text = "Critical:";
+            // 
+            // lbl_Exceeded_Tag
+            // 
+            this.lbl_Exceeded_Tag.AutoSize = true;
+            this.lbl_Exceeded_Tag.Location = new System.Drawing.Point(1088, 334);
+            this.lbl_Exceeded_Tag.Name = "lbl_Exceeded_Tag";
+            this.lbl_Exceeded_Tag.Size = new System.Drawing.Size(76, 20);
+            this.lbl_Exceeded_Tag.TabIndex = 14;
+            this.lbl_Exceeded_Tag.Text = "Exceeded:";
+            // 
+            // lbl_Elements
+            // 
+            this.lbl_Elements.AutoSize = true;
+            this.lbl_Elements.Location = new System.Drawing.Point(1088, 253);
+            this.lbl_Elements.Name = "lbl_Elements";
+            this.lbl_Elements.Size = new System.Drawing.Size(69, 20);
+            this.lbl_Elements.TabIndex = 15;
+            this.lbl_Elements.Text = "Elements";
+            // 
+            // lbl_Total_Count
+            // 
+            this.lbl_Total_Count.AutoSize = true;
+            this.lbl_Total_Count.Location = new System.Drawing.Point(1170, 280);
+            this.lbl_Total_Count.Name = "lbl_Total_Count";
+            this.lbl_Total_Count.Size = new System.Drawing.Size(27, 20);
+            this.lbl_Total_Count.TabIndex = 16;
+            this.lbl_Total_Count.Text = "---";
+            // 
+            // lbl_Critical_Count
+            // 
+            this.lbl_Critical_Count.AutoSize = true;
+            this.lbl_Critical_Count.Location = new System.Drawing.Point(1170, 307);
+            this.lbl_Critical_Count.Name = "lbl_Critical_Count";
+            this.lbl_Critical_Count.Size = new System.Drawing.Size(27, 20);
+            this.lbl_Critical_Count.TabIndex = 17;
+            this.lbl_Critical_Count.Text = "---";
+            // 
+            // lbl_Exceeded_Count
+            // 
+            this.lbl_Exceeded_Count.AutoSize = true;
+            this.lbl_Exceeded_Count.Location = new System.Drawing.Point(1170, 334);
+            this.lbl_Exceeded_Count.Name = "lbl_Exceeded_Count";
+            this.lbl_Exceeded_Count.Size = new System.Drawing.Size(27, 20);
+            this.lbl_Exceeded_Count.TabIndex = 18;
+            this.lbl_Exceeded_Count.Text = "---";
+            // 
+            // opt_LimitedOnly
+            // 
+            this.opt_LimitedOnly.AutoSize = true;
+            this.opt_LimitedOnly.Location = new System.Drawing.Point(1093, 427);
+            this.opt_LimitedOnly.Name = "opt_LimitedOnly";
+            this.opt_LimitedOnly.Size = new System.Drawing.Size(108, 24);
+            this.opt_LimitedOnly.TabIndex = 19;
+            this.opt_LimitedOnly.Text = "Critical only";
+            this.opt_LimitedOnly.UseVisualStyleBackColor = true;
+            // 
+            // opt_ExceededOnly
+            // 
+            this.opt_ExceededOnly.AutoSize = true;
+            this.opt_ExceededOnly.Location = new System.Drawing.Point(1093, 457);
+            this.opt_ExceededOnly.Name = "opt_ExceededOnly";
+            this.opt_ExceededOnly.Size = new System.Drawing.Size(126, 24);
+            this.opt_ExceededOnly.TabIndex = 20;
+            this.opt_ExceededOnly.Text = "Exceeded only";
+            this.opt_ExceededOnly.UseVisualStyleBackColor = true;
+            // 
+            // opt_AllElements
+            // 
+            this.opt_AllElements.AutoSize = true;
+            this.opt_AllElements.Checked = true;
+            this.opt_AllElements.Location = new System.Drawing.Point(1093, 397);
+            this.opt_AllElements.Name = "opt_AllElements";
+            this.opt_AllElements.Size = new System.Drawing.Size(112, 24);
+            this.opt_AllElements.TabIndex = 21;
+            this.opt_AllElements.TabStop = true;
+            this.opt_AllElements.Text = "All elements";
+            this.opt_AllElements.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1082, 653);
-            this.Controls.Add(this.sst_Status);
+            this.ClientSize = new System.Drawing.Size(1270, 753);
+            this.Controls.Add(this.opt_AllElements);
+            this.Controls.Add(this.opt_ExceededOnly);
+            this.Controls.Add(this.opt_LimitedOnly);
+            this.Controls.Add(this.lbl_Exceeded_Count);
+            this.Controls.Add(this.lbl_Critical_Count);
+            this.Controls.Add(this.lbl_Total_Count);
+            this.Controls.Add(this.lbl_Elements);
+            this.Controls.Add(this.lbl_Exceeded_Tag);
+            this.Controls.Add(this.lbl_Critical_Tag);
+            this.Controls.Add(this.lbl_Total_Tag);
+            this.Controls.Add(this.lbl_chars0);
+            this.Controls.Add(this.lbl_chars1);
             this.Controls.Add(this.btn_Update);
             this.Controls.Add(this.nud_ExceededPathLength);
             this.Controls.Add(this.lbl_ExccededPathLength);
@@ -252,8 +345,6 @@ namespace PathCheck
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nud_ExceededPathLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CriticalPathLength)).EndInit();
-            this.sst_Status.ResumeLayout(false);
-            this.sst_Status.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,12 +364,20 @@ namespace PathCheck
         private System.Windows.Forms.FolderBrowserDialog fld_Browser;
         private System.Windows.Forms.ColumnHeader col_Type;
         private System.Windows.Forms.ColumnHeader col_Path;
-        private System.Windows.Forms.StatusStrip sst_Status;
-        private System.Windows.Forms.ToolStripStatusLabel sst_Status_TotalElements;
-        private System.Windows.Forms.ToolStripStatusLabel sst_Status_ExceededElements;
-        private System.Windows.Forms.ToolStripStatusLabel sst_Status_WarningElements;
         private System.Windows.Forms.ColumnHeader col_Length;
         private System.Windows.Forms.ColumnHeader col_State;
+        private System.Windows.Forms.Label lbl_chars1;
+        private System.Windows.Forms.Label lbl_chars0;
+        private System.Windows.Forms.Label lbl_Total_Tag;
+        private System.Windows.Forms.Label lbl_Critical_Tag;
+        private System.Windows.Forms.Label lbl_Exceeded_Tag;
+        private System.Windows.Forms.Label lbl_Elements;
+        private System.Windows.Forms.Label lbl_Total_Count;
+        private System.Windows.Forms.Label lbl_Critical_Count;
+        private System.Windows.Forms.Label lbl_Exceeded_Count;
+        private System.Windows.Forms.RadioButton opt_LimitedOnly;
+        private System.Windows.Forms.RadioButton opt_ExceededOnly;
+        private System.Windows.Forms.RadioButton opt_AllElements;
     }
 }
 
