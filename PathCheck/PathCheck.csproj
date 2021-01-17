@@ -4,6 +4,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <StartupObject></StartupObject>
+    <Authors>Crocodile Dundee</Authors>
+    <Company />
+    <Description>Tool to check the length of all elements within a selected directory.</Description>
+    <RepositoryUrl>https://github.com/Crocodile-Dundee/PathCheck.git</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
