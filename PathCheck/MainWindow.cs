@@ -18,9 +18,15 @@ namespace PathCheck
             InitializeComponent();
         }
 
+
+        
         private void MainWindow_Load(object sender, EventArgs e)
         {
             this.Text = $"{Assembly.GetExecutingAssembly().GetName().Name.ToString()} - Version {Assembly.GetEntryAssembly().GetName().Version.ToString()}";
+            this.Size = new Size(1100, 700);
         }
-    }
+
+
+
+        }
 }
