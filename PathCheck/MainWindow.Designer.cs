@@ -55,8 +55,14 @@ namespace PathCheck
             this.opt_LimitedOnly = new System.Windows.Forms.RadioButton();
             this.opt_ExceededOnly = new System.Windows.Forms.RadioButton();
             this.opt_AllElements = new System.Windows.Forms.RadioButton();
+            this.lbl_LoadingHint = new System.Windows.Forms.Label();
+            this.btn_SaveSettings = new System.Windows.Forms.Button();
+            this.grp_Settings = new System.Windows.Forms.GroupBox();
+            this.grp_Result = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ExceededPathLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CriticalPathLength)).BeginInit();
+            this.grp_Settings.SuspendLayout();
+            this.grp_Result.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_SelectedDir
@@ -64,16 +70,16 @@ namespace PathCheck
             this.lbl_SelectedDir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_SelectedDir.Location = new System.Drawing.Point(12, 37);
             this.lbl_SelectedDir.Name = "lbl_SelectedDir";
-            this.lbl_SelectedDir.Size = new System.Drawing.Size(1208, 29);
+            this.lbl_SelectedDir.Size = new System.Drawing.Size(1271, 29);
             this.lbl_SelectedDir.TabIndex = 0;
             this.lbl_SelectedDir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btn_SelectDir
             // 
             this.btn_SelectDir.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_SelectDir.Location = new System.Drawing.Point(1226, 36);
+            this.btn_SelectDir.Location = new System.Drawing.Point(1289, 36);
             this.btn_SelectDir.Name = "btn_SelectDir";
-            this.btn_SelectDir.Size = new System.Drawing.Size(32, 31);
+            this.btn_SelectDir.Size = new System.Drawing.Size(31, 31);
             this.btn_SelectDir.TabIndex = 1;
             this.btn_SelectDir.Text = "···";
             this.btn_SelectDir.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -125,7 +131,7 @@ namespace PathCheck
             // 
             // nud_ExceededPathLength
             // 
-            this.nud_ExceededPathLength.Location = new System.Drawing.Point(1091, 108);
+            this.nud_ExceededPathLength.Location = new System.Drawing.Point(44, 57);
             this.nud_ExceededPathLength.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -145,17 +151,13 @@ namespace PathCheck
             0,
             0,
             0});
+            this.nud_ExceededPathLength.ValueChanged += new System.EventHandler(this.nud_ExceededPathLength_ValueChanged);
             // 
             // nud_CriticalPathLength
             // 
-            this.nud_CriticalPathLength.Location = new System.Drawing.Point(1091, 177);
+            this.nud_CriticalPathLength.Location = new System.Drawing.Point(44, 121);
             this.nud_CriticalPathLength.Maximum = new decimal(new int[] {
             32767,
-            0,
-            0,
-            0});
-            this.nud_CriticalPathLength.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -168,11 +170,12 @@ namespace PathCheck
             0,
             0,
             0});
+            this.nud_CriticalPathLength.ValueChanged += new System.EventHandler(this.nud_CriticalPathLength_ValueChanged);
             // 
             // lbl_ExccededPathLength
             // 
             this.lbl_ExccededPathLength.AutoSize = true;
-            this.lbl_ExccededPathLength.Location = new System.Drawing.Point(1089, 85);
+            this.lbl_ExccededPathLength.Location = new System.Drawing.Point(42, 34);
             this.lbl_ExccededPathLength.Name = "lbl_ExccededPathLength";
             this.lbl_ExccededPathLength.Size = new System.Drawing.Size(119, 20);
             this.lbl_ExccededPathLength.TabIndex = 6;
@@ -181,7 +184,7 @@ namespace PathCheck
             // lbl_ShowCritical
             // 
             this.lbl_ShowCritical.AutoSize = true;
-            this.lbl_ShowCritical.Location = new System.Drawing.Point(1089, 154);
+            this.lbl_ShowCritical.Location = new System.Drawing.Point(42, 98);
             this.lbl_ShowCritical.Name = "lbl_ShowCritical";
             this.lbl_ShowCritical.Size = new System.Drawing.Size(101, 20);
             this.lbl_ShowCritical.TabIndex = 7;
@@ -190,18 +193,19 @@ namespace PathCheck
             // btn_Update
             // 
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_Update.Location = new System.Drawing.Point(1088, 710);
+            this.btn_Update.Location = new System.Drawing.Point(1088, 295);
             this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(170, 31);
+            this.btn_Update.Size = new System.Drawing.Size(232, 31);
             this.btn_Update.TabIndex = 8;
             this.btn_Update.Text = "Update";
             this.btn_Update.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // lbl_chars1
             // 
             this.lbl_chars1.AutoSize = true;
-            this.lbl_chars1.Location = new System.Drawing.Point(1177, 110);
+            this.lbl_chars1.Location = new System.Drawing.Point(130, 59);
             this.lbl_chars1.Name = "lbl_chars1";
             this.lbl_chars1.Size = new System.Drawing.Size(43, 20);
             this.lbl_chars1.TabIndex = 10;
@@ -210,7 +214,7 @@ namespace PathCheck
             // lbl_chars0
             // 
             this.lbl_chars0.AutoSize = true;
-            this.lbl_chars0.Location = new System.Drawing.Point(1177, 179);
+            this.lbl_chars0.Location = new System.Drawing.Point(130, 123);
             this.lbl_chars0.Name = "lbl_chars0";
             this.lbl_chars0.Size = new System.Drawing.Size(43, 20);
             this.lbl_chars0.TabIndex = 11;
@@ -218,35 +222,35 @@ namespace PathCheck
             // 
             // lbl_Total_Tag
             // 
-            this.lbl_Total_Tag.AutoSize = true;
-            this.lbl_Total_Tag.Location = new System.Drawing.Point(1088, 280);
+            this.lbl_Total_Tag.Location = new System.Drawing.Point(26, 66);
             this.lbl_Total_Tag.Name = "lbl_Total_Tag";
-            this.lbl_Total_Tag.Size = new System.Drawing.Size(45, 20);
+            this.lbl_Total_Tag.Size = new System.Drawing.Size(82, 20);
             this.lbl_Total_Tag.TabIndex = 12;
             this.lbl_Total_Tag.Text = "Total:";
             // 
             // lbl_Critical_Tag
             // 
-            this.lbl_Critical_Tag.AutoSize = true;
-            this.lbl_Critical_Tag.Location = new System.Drawing.Point(1088, 307);
+            this.lbl_Critical_Tag.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Critical_Tag.Location = new System.Drawing.Point(26, 93);
             this.lbl_Critical_Tag.Name = "lbl_Critical_Tag";
-            this.lbl_Critical_Tag.Size = new System.Drawing.Size(58, 20);
+            this.lbl_Critical_Tag.Size = new System.Drawing.Size(82, 20);
             this.lbl_Critical_Tag.TabIndex = 13;
             this.lbl_Critical_Tag.Text = "Critical:";
             // 
             // lbl_Exceeded_Tag
             // 
-            this.lbl_Exceeded_Tag.AutoSize = true;
-            this.lbl_Exceeded_Tag.Location = new System.Drawing.Point(1088, 334);
+            this.lbl_Exceeded_Tag.BackColor = System.Drawing.Color.Red;
+            this.lbl_Exceeded_Tag.ForeColor = System.Drawing.Color.White;
+            this.lbl_Exceeded_Tag.Location = new System.Drawing.Point(26, 120);
             this.lbl_Exceeded_Tag.Name = "lbl_Exceeded_Tag";
-            this.lbl_Exceeded_Tag.Size = new System.Drawing.Size(76, 20);
+            this.lbl_Exceeded_Tag.Size = new System.Drawing.Size(82, 20);
             this.lbl_Exceeded_Tag.TabIndex = 14;
             this.lbl_Exceeded_Tag.Text = "Exceeded:";
             // 
             // lbl_Elements
             // 
             this.lbl_Elements.AutoSize = true;
-            this.lbl_Elements.Location = new System.Drawing.Point(1088, 253);
+            this.lbl_Elements.Location = new System.Drawing.Point(26, 39);
             this.lbl_Elements.Name = "lbl_Elements";
             this.lbl_Elements.Size = new System.Drawing.Size(69, 20);
             this.lbl_Elements.TabIndex = 15;
@@ -255,7 +259,7 @@ namespace PathCheck
             // lbl_Total_Count
             // 
             this.lbl_Total_Count.AutoSize = true;
-            this.lbl_Total_Count.Location = new System.Drawing.Point(1170, 280);
+            this.lbl_Total_Count.Location = new System.Drawing.Point(108, 66);
             this.lbl_Total_Count.Name = "lbl_Total_Count";
             this.lbl_Total_Count.Size = new System.Drawing.Size(27, 20);
             this.lbl_Total_Count.TabIndex = 16;
@@ -264,7 +268,8 @@ namespace PathCheck
             // lbl_Critical_Count
             // 
             this.lbl_Critical_Count.AutoSize = true;
-            this.lbl_Critical_Count.Location = new System.Drawing.Point(1170, 307);
+            this.lbl_Critical_Count.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Critical_Count.Location = new System.Drawing.Point(108, 93);
             this.lbl_Critical_Count.Name = "lbl_Critical_Count";
             this.lbl_Critical_Count.Size = new System.Drawing.Size(27, 20);
             this.lbl_Critical_Count.TabIndex = 17;
@@ -273,7 +278,9 @@ namespace PathCheck
             // lbl_Exceeded_Count
             // 
             this.lbl_Exceeded_Count.AutoSize = true;
-            this.lbl_Exceeded_Count.Location = new System.Drawing.Point(1170, 334);
+            this.lbl_Exceeded_Count.BackColor = System.Drawing.Color.Red;
+            this.lbl_Exceeded_Count.ForeColor = System.Drawing.Color.White;
+            this.lbl_Exceeded_Count.Location = new System.Drawing.Point(108, 120);
             this.lbl_Exceeded_Count.Name = "lbl_Exceeded_Count";
             this.lbl_Exceeded_Count.Size = new System.Drawing.Size(27, 20);
             this.lbl_Exceeded_Count.TabIndex = 18;
@@ -282,7 +289,7 @@ namespace PathCheck
             // opt_LimitedOnly
             // 
             this.opt_LimitedOnly.AutoSize = true;
-            this.opt_LimitedOnly.Location = new System.Drawing.Point(1093, 427);
+            this.opt_LimitedOnly.Location = new System.Drawing.Point(31, 213);
             this.opt_LimitedOnly.Name = "opt_LimitedOnly";
             this.opt_LimitedOnly.Size = new System.Drawing.Size(108, 24);
             this.opt_LimitedOnly.TabIndex = 19;
@@ -292,7 +299,7 @@ namespace PathCheck
             // opt_ExceededOnly
             // 
             this.opt_ExceededOnly.AutoSize = true;
-            this.opt_ExceededOnly.Location = new System.Drawing.Point(1093, 457);
+            this.opt_ExceededOnly.Location = new System.Drawing.Point(31, 243);
             this.opt_ExceededOnly.Name = "opt_ExceededOnly";
             this.opt_ExceededOnly.Size = new System.Drawing.Size(126, 24);
             this.opt_ExceededOnly.TabIndex = 20;
@@ -303,7 +310,7 @@ namespace PathCheck
             // 
             this.opt_AllElements.AutoSize = true;
             this.opt_AllElements.Checked = true;
-            this.opt_AllElements.Location = new System.Drawing.Point(1093, 397);
+            this.opt_AllElements.Location = new System.Drawing.Point(31, 183);
             this.opt_AllElements.Name = "opt_AllElements";
             this.opt_AllElements.Size = new System.Drawing.Size(112, 24);
             this.opt_AllElements.TabIndex = 21;
@@ -311,32 +318,74 @@ namespace PathCheck
             this.opt_AllElements.Text = "All elements";
             this.opt_AllElements.UseVisualStyleBackColor = true;
             // 
+            // lbl_LoadingHint
+            // 
+            this.lbl_LoadingHint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_LoadingHint.Location = new System.Drawing.Point(12, 74);
+            this.lbl_LoadingHint.Name = "lbl_LoadingHint";
+            this.lbl_LoadingHint.Size = new System.Drawing.Size(1070, 667);
+            this.lbl_LoadingHint.TabIndex = 22;
+            this.lbl_LoadingHint.Text = "Loading Directory...";
+            this.lbl_LoadingHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_SaveSettings
+            // 
+            this.btn_SaveSettings.Location = new System.Drawing.Point(43, 165);
+            this.btn_SaveSettings.Name = "btn_SaveSettings";
+            this.btn_SaveSettings.Size = new System.Drawing.Size(125, 30);
+            this.btn_SaveSettings.TabIndex = 23;
+            this.btn_SaveSettings.Text = "Save";
+            this.btn_SaveSettings.UseVisualStyleBackColor = true;
+            this.btn_SaveSettings.Click += new System.EventHandler(this.btn_SaveSettings_Click);
+            // 
+            // grp_Settings
+            // 
+            this.grp_Settings.Controls.Add(this.lbl_ExccededPathLength);
+            this.grp_Settings.Controls.Add(this.btn_SaveSettings);
+            this.grp_Settings.Controls.Add(this.lbl_ShowCritical);
+            this.grp_Settings.Controls.Add(this.nud_CriticalPathLength);
+            this.grp_Settings.Controls.Add(this.nud_ExceededPathLength);
+            this.grp_Settings.Controls.Add(this.lbl_chars1);
+            this.grp_Settings.Controls.Add(this.lbl_chars0);
+            this.grp_Settings.Location = new System.Drawing.Point(1088, 74);
+            this.grp_Settings.Name = "grp_Settings";
+            this.grp_Settings.Size = new System.Drawing.Size(232, 215);
+            this.grp_Settings.TabIndex = 24;
+            this.grp_Settings.TabStop = false;
+            this.grp_Settings.Text = "Settings";
+            // 
+            // grp_Result
+            // 
+            this.grp_Result.Controls.Add(this.lbl_Elements);
+            this.grp_Result.Controls.Add(this.lbl_Total_Tag);
+            this.grp_Result.Controls.Add(this.opt_AllElements);
+            this.grp_Result.Controls.Add(this.lbl_Critical_Tag);
+            this.grp_Result.Controls.Add(this.opt_ExceededOnly);
+            this.grp_Result.Controls.Add(this.lbl_Exceeded_Tag);
+            this.grp_Result.Controls.Add(this.opt_LimitedOnly);
+            this.grp_Result.Controls.Add(this.lbl_Total_Count);
+            this.grp_Result.Controls.Add(this.lbl_Exceeded_Count);
+            this.grp_Result.Controls.Add(this.lbl_Critical_Count);
+            this.grp_Result.Location = new System.Drawing.Point(1088, 371);
+            this.grp_Result.Name = "grp_Result";
+            this.grp_Result.Size = new System.Drawing.Size(232, 370);
+            this.grp_Result.TabIndex = 25;
+            this.grp_Result.TabStop = false;
+            this.grp_Result.Text = "Result";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1270, 753);
-            this.Controls.Add(this.opt_AllElements);
-            this.Controls.Add(this.opt_ExceededOnly);
-            this.Controls.Add(this.opt_LimitedOnly);
-            this.Controls.Add(this.lbl_Exceeded_Count);
-            this.Controls.Add(this.lbl_Critical_Count);
-            this.Controls.Add(this.lbl_Total_Count);
-            this.Controls.Add(this.lbl_Elements);
-            this.Controls.Add(this.lbl_Exceeded_Tag);
-            this.Controls.Add(this.lbl_Critical_Tag);
-            this.Controls.Add(this.lbl_Total_Tag);
-            this.Controls.Add(this.lbl_chars0);
-            this.Controls.Add(this.lbl_chars1);
+            this.ClientSize = new System.Drawing.Size(1332, 753);
+            this.Controls.Add(this.grp_Result);
+            this.Controls.Add(this.grp_Settings);
             this.Controls.Add(this.btn_Update);
-            this.Controls.Add(this.nud_ExceededPathLength);
-            this.Controls.Add(this.lbl_ExccededPathLength);
-            this.Controls.Add(this.nud_CriticalPathLength);
             this.Controls.Add(this.ltv_PathElements);
             this.Controls.Add(this.lbl_SelectedDir_Tag);
             this.Controls.Add(this.btn_SelectDir);
             this.Controls.Add(this.lbl_SelectedDir);
-            this.Controls.Add(this.lbl_ShowCritical);
+            this.Controls.Add(this.lbl_LoadingHint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
@@ -345,6 +394,10 @@ namespace PathCheck
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nud_ExceededPathLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CriticalPathLength)).EndInit();
+            this.grp_Settings.ResumeLayout(false);
+            this.grp_Settings.PerformLayout();
+            this.grp_Result.ResumeLayout(false);
+            this.grp_Result.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +431,10 @@ namespace PathCheck
         private System.Windows.Forms.RadioButton opt_LimitedOnly;
         private System.Windows.Forms.RadioButton opt_ExceededOnly;
         private System.Windows.Forms.RadioButton opt_AllElements;
+        private System.Windows.Forms.Label lbl_LoadingHint;
+        private System.Windows.Forms.Button btn_SaveSettings;
+        private System.Windows.Forms.GroupBox grp_Settings;
+        private System.Windows.Forms.GroupBox grp_Result;
     }
 }
 

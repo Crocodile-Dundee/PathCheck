@@ -1,20 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Text;
 
 namespace PathCheck
 {
-    public static class PathChecks
+    /// <summary>
+    /// Class to check the path properties of the elements
+    /// </summary>
+    public class PathChecks
     {
-        enum ElementType
+        /// <summary>
+        /// Element Type
+        /// </summary>
+        public enum ElementType
         {
             Directory,
             File
         }
 
-        enum ElementState
+        /// <summary>
+        /// Classification of the element length
+        /// </summary>
+        public enum ElementLength
         {
             OK,
             Critical,
@@ -22,7 +29,19 @@ namespace PathCheck
         }
 
 
-        static PathChecks()
+        /// <summary>
+        /// Singleton: Return the instance
+        /// </summary>
+        private static readonly PathChecks _Instance = new PathChecks();
+        public static PathChecks GetInstance()
+        {
+            return _Instance;
+        }
+
+        /// <summary>
+        /// Singleton: Private Constructor
+        /// </summary>
+        private PathChecks()
         {
             SelectedDir = null;
 
@@ -32,40 +51,41 @@ namespace PathCheck
         }
 
 
+
         /// <summary>
         /// Selected Path to be analyse
         /// </summary>
-        public static string SelectedDir { get; set; }
+        public string SelectedDir { get; set; }
 
         /// <summary>
         /// Path length from which the element should be shown as critical
         /// </summary>
-        public static int CriticalLength { get; set; }
+        public int CriticalLength { get; set; }
 
         /// <summary>
         /// Path length from which the element should be shown as exceeded
         /// </summary>
-        public static int ExceededLength { get; set; }
+        public int ExceededLength { get; set; }
 
         /// <summary>
         /// Data table which contains the result
         /// </summary>
-        public static DataTable AnalyseResultTable { get; set; }
+        public DataTable AnalyseResultTable { get; set; }
         
         /// <summary>
         /// Total element count in the selected directory
         /// </summary>
-        public static int TotalElementsCount { get; set; }
+        public int TotalElementsCount { get; set; }
 
         /// <summary>
         /// Count of critical elements 
         /// </summary>
-        public static int CriticalElementsCount { get; set; }
+        public int CriticalElementsCount { get; set; }
 
         /// <summary>
         /// Count of exceeded elements
         /// </summary>
-        public static int ExceededElementsCount { get; set; }
+        public int ExceededElementsCount { get; set; }
 
 
 
@@ -74,66 +94,96 @@ namespace PathCheck
         /// </summary>
         /// <param name="selectedDir">Selected Directory</param>
         /// <returns></returns>
-        public static bool AnalyseSelectedDir(string selectedDir)
+        public void AnalyseSelectedDir(string selectedDir, int criticalLength, int exceededLength)
         {
             // Config result data table
             AnalyseResultTable = new DataTable();
             AnalyseResultTable.Columns.Add("ElementType", typeof(ElementType));
             AnalyseResultTable.Columns.Add("ElementPath", typeof(string));
             AnalyseResultTable.Columns.Add("ElementLength", typeof(int));
-            AnalyseResultTable.Columns.Add("ElementState", typeof(ElementState));
+            AnalyseResultTable.Columns.Add("ElementState", typeof(ElementLength));
 
             // Reset counts
-            TotalElementsCount++;
-            CriticalElementsCount++;
-            ExceededElementsCount++;
+            TotalElementsCount = 0;
+            CriticalElementsCount = 0;
+            ExceededElementsCount = 0;
 
-            // Table of elements
-            GetAllElemnts(selectedDir);
+            // Get table of elements
+            GetAllFiles(selectedDir);
+            GetAllSubDirElements(selectedDir);
 
             // Loop through all elements in the list and fill data table
             for (int i = 0; i < AnalyseResultTable.Rows.Count; i++)
             {
-                ElementState state;
+                ElementLength lengthState = ElementLength.OK;
 
-                if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < CriticalLength)
+                if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < criticalLength)
                 {
-                    state = ElementState.OK;
+                    lengthState = ElementLength.OK;
                 }
-                else if ((Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= CriticalLength) 
-                      && (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < ExceededLength)) 
+                else if ((Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= criticalLength) 
+                      && (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < exceededLength)) 
                 {
-                    state = ElementState.Critical;
+                    lengthState = ElementLength.Critical;
+                    CriticalElementsCount++;
                 }
-                else
+                else if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= exceededLength)
                 {
-                    state = ElementState.Exceeded;
+                    lengthState = ElementLength.Exceeded;
+                    ExceededElementsCount++;
                 }
 
-                AnalyseResultTable.Rows[i][3] = state;
+                AnalyseResultTable.Rows[i][3] = lengthState;
             }
-
-            return true;
         }
 
 
-        private static void GetAllElemnts(string selectedDir)
+        /// <summary>
+        /// Get all files of the selected directory
+        /// </summary>
+        /// <param name="selectedDir"></param>
+        private void GetAllFiles(string selectedDir)
         {
+            string[] files = Directory.GetFiles(selectedDir);
+            foreach (string file in files)
+            {
+                AnalyseResultTable.Rows.Add(ElementType.Directory, file, file.Length, null);
+                TotalElementsCount++;
+            }
+        }
+
+
+        /// <summary>
+        /// Get all elements of the sub directories of the selected directory
+        /// </summary>
+        /// <param name="selectedDir"></param>
+        private void GetAllSubDirElements(string selectedDir)
+        {
+            if (selectedDir == null)
+            {
+                return;
+            }
+
+
             string[] directories = Directory.GetDirectories(selectedDir);
 
             foreach (string directory in directories)
             {
-                AnalyseResultTable.Rows.Add(ElementType.Directory, directory, directory.Length, null);
-                TotalElementsCount++;
-
-                string[] files = Directory.GetFiles(directory);
-                foreach(string file in files)
+                try
                 {
-                    AnalyseResultTable.Rows.Add(ElementType.Directory, file, file.Length, null);
+                    AnalyseResultTable.Rows.Add(ElementType.Directory, directory, directory.Length, null);
                     TotalElementsCount++;
-                }
 
-                GetAllElemnts(directory);
+                    string[] files = Directory.GetFiles(directory);
+                    foreach (string file in files)
+                    {
+                        AnalyseResultTable.Rows.Add(ElementType.Directory, file, file.Length, null);
+                        TotalElementsCount++;
+                    }
+
+                    GetAllSubDirElements(directory);
+                }
+                catch { }
             }
         }
 
