@@ -202,7 +202,7 @@ namespace PathCheck
             // btn_Update
             // 
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_Update.Location = new System.Drawing.Point(1088, 315);
+            this.btn_Update.Location = new System.Drawing.Point(1088, 317);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(232, 31);
             this.btn_Update.TabIndex = 8;
