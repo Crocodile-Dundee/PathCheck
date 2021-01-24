@@ -177,7 +177,7 @@ namespace PathCheck
                     string[] files = Directory.GetFiles(directory);
                     foreach (string file in files)
                     {
-                        AnalyseResultTable.Rows.Add(ElementType.Directory, file, file.Length, null);
+                        AnalyseResultTable.Rows.Add(ElementType.File, file, file.Length, null);
                         TotalElementsCount++;
                     }
 

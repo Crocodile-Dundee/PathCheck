@@ -1,6 +1,7 @@
 ﻿using PathCheck.Properties;
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
@@ -68,7 +69,7 @@ namespace PathCheck
                 PatchCheck.SelectedDir = fld_Browser.SelectedPath;
                 lbl_SelectedDir.Text = PatchCheck.SelectedDir;
 
-                Update();
+                Analyse(PatchCheck.SelectedDir);
             }
         }
 
@@ -79,7 +80,7 @@ namespace PathCheck
         /// <param name="e"></param>
         private void btn_Update_Click(object sender, EventArgs e)
         {
-            Update();
+            Analyse(PatchCheck.SelectedDir);
         }
 
         /// <summary>
@@ -120,26 +121,62 @@ namespace PathCheck
             Settings.Default.Save();
         }
 
+        /// <summary>
+        /// RadioButton: Show all elments
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void opt_AllElements_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opt_AllElements.Checked)
+            {
+                Analyse(PatchCheck.SelectedDir);
+            }
+        }
+
+        /// <summary>
+        /// RadioButton: Show Cricital Only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void opt_CriticalOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opt_CriticalOnly.Checked)
+            {
+                Analyse(PatchCheck.SelectedDir);
+            }
+        }
+
+        /// <summary>
+        /// RadioButton: Show Exceeded Only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void opt_ExceededOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opt_ExceededOnly.Checked)
+            {
+                Analyse(PatchCheck.SelectedDir);
+            }
+        }
+
+        /// <summary>
+        /// ListView: Click item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ltv_PathElements_Click(object sender, EventArgs e)
+        {
+            if (ltv_PathElements.SelectedItems[0].SubItems[0].Text == Convert.ToInt32(PathChecks.ElementType.Directory).ToString())
+            {
+                Process.Start("explorer.exe", ltv_PathElements.SelectedItems[0].SubItems[1].Text);
+            }
+        }
+
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         // Methods
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-        // Update the analysis
-        private void Update()
-        {
-            ltv_PathElements.Visible = false;
-            grp_Settings.Enabled = false;
-            grp_Result.Enabled = false;
-            Application.DoEvents();
-
-            Analyse(PatchCheck.SelectedDir);
-
-            ltv_PathElements.Visible = true;
-            grp_Settings.Enabled = true;
-            grp_Result.Enabled = true;
-            Application.DoEvents();
-        }
 
         /// <summary>
         /// Analyse directory and show result
@@ -147,43 +184,97 @@ namespace PathCheck
         /// <param name="selectedDir"></param>
         private void Analyse(string selectedDir)
         {
+            // Hide Controls
+            ltv_PathElements.Visible = false;
+            grp_Settings.Enabled = false;
+            grp_Result.Enabled = false;
+            Application.DoEvents();
+
             // Analyse
             PatchCheck.AnalyseSelectedDir(PatchCheck.SelectedDir, Settings.Default.CriticalLimit, Settings.Default.ExceededLimit);
 
-            // Show element counts
+            // Show results counts
             lbl_Total_Count.Text = PatchCheck.TotalElementsCount.ToString();
             lbl_Critical_Count.Text = PatchCheck.CriticalElementsCount.ToString();
             lbl_Exceeded_Count.Text = PatchCheck.ExceededElementsCount.ToString();
 
             // Show elements in ListView
-            ltv_PathElements.Items.Clear();
-            Application.DoEvents();
 
+            // - Begin Update process
+            ltv_PathElements.BeginUpdate();
+
+            // - Config listview
+            ltv_PathElements.Items.Clear();
+            ltv_PathElements.View = View.Details;
+
+            // - Show elements
             foreach (DataRow row in PatchCheck.AnalyseResultTable.Rows)
             {
+                // Create ListView item
                 ListViewItem item = new ListViewItem(row[0].ToString());
                 for (int i = 1; i < PatchCheck.AnalyseResultTable.Columns.Count; i++)
                 {
                     item.SubItems.Add(row[i].ToString());
                 }
-                ltv_PathElements.Items.Add(item);
+
+                item.UseItemStyleForSubItems = false;
 
                 if (item.SubItems[3].Text == Convert.ToInt32(PathChecks.ElementLength.Critical).ToString())
                 {
-                    item.BackColor = Color.Yellow;
-                    item.ForeColor = Color.Black;
+                    item.SubItems[2].BackColor = Color.Yellow;
+                    item.SubItems[2].ForeColor = Color.Black;
                 }
                 else if (item.SubItems[3].Text == Convert.ToInt32(PathChecks.ElementLength.Exceeded).ToString())
                 {
-                    item.BackColor = Color.Red;
-                    item.ForeColor = Color.White;
+                    item.SubItems[2].BackColor = Color.Red;
+                    item.SubItems[2].ForeColor = Color.White;
                 }
                 else
                 {
-                    item.BackColor = Color.White;
-                    item.ForeColor = Color.Black;
+                    item.SubItems[2].BackColor = Color.White;
+                    item.SubItems[2].ForeColor = Color.Black;
                 }
+
+
+                if (item.SubItems[0].Text == Convert.ToInt32(PathChecks.ElementType.Directory).ToString())
+                {
+                    item.SubItems[1].ForeColor = Color.Blue;
+                    item.SubItems[1].Font = new Font(item.SubItems[1].Font.Name, item.SubItems[1].Font.SizeInPoints, FontStyle.Underline);
+                }
+
+                // Show All Elements
+                if (opt_AllElements.Checked)
+                {
+                    ltv_PathElements.Items.Add(item);
+                }
+
+                // Show Critical Elements Only
+                if (opt_CriticalOnly.Checked)
+                {
+                    if (item.SubItems[3].Text == Convert.ToInt32(PathChecks.ElementLength.Critical).ToString())
+                    {
+                        ltv_PathElements.Items.Add(item);
+                    }
+                }
+
+                // Show Exceeded Elements Only
+                if (opt_ExceededOnly.Checked)
+                {
+                    if (item.SubItems[3].Text == Convert.ToInt32(PathChecks.ElementLength.Exceeded).ToString())
+                    {
+                        ltv_PathElements.Items.Add(item);
+                    }
+                }
+                
             }
+
+            ltv_PathElements.EndUpdate();
+
+            // Show Controls
+            ltv_PathElements.Visible = true;
+            grp_Settings.Enabled = true;
+            grp_Result.Enabled = true;
+            Application.DoEvents();
         }
 
 
