@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -48,7 +49,7 @@ namespace PathCheck
         private void MainWindow_Load(object sender, EventArgs e)
         {
             // Form
-            this.Text = $"{Assembly.GetExecutingAssembly().GetName().Name.ToString()} - Version {Assembly.GetEntryAssembly().GetName().Version.ToString()}";
+            this.Text = $"{Assembly.GetExecutingAssembly().GetName().Name} - Version {Assembly.GetEntryAssembly().GetName().Version.Major}.{Assembly.GetEntryAssembly().GetName().Version.Minor}{Assembly.GetEntryAssembly().GetName().Version.Revision}";
             this.Size = new Size(1350, 800);
         }
 
@@ -70,6 +71,19 @@ namespace PathCheck
                 lbl_SelectedDir.Text = PatchCheck.SelectedDir;
 
                 Analyse(PatchCheck.SelectedDir);
+            }
+        }
+
+        /// <summary>
+        /// Label: Open Selected Directory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbl_SelectedDir_Click(object sender, EventArgs e)
+        {
+            if (lbl_SelectedDir.Text != string.Empty)
+            {
+                Process.Start("explorer.exe", lbl_SelectedDir.Text);
             }
         }
 
@@ -167,10 +181,7 @@ namespace PathCheck
         /// <param name="e"></param>
         private void ltv_PathElements_Click(object sender, EventArgs e)
         {
-            if (ltv_PathElements.SelectedItems[0].SubItems[0].Text == Convert.ToInt32(PathChecks.ElementType.Directory).ToString())
-            {
-                Process.Start("explorer.exe", ltv_PathElements.SelectedItems[0].SubItems[1].Text);
-            }
+            Process.Start("explorer.exe", Path.GetDirectoryName(ltv_PathElements.SelectedItems[0].SubItems[1].Text));
         }
 
 
@@ -206,6 +217,7 @@ namespace PathCheck
             // - Config listview
             ltv_PathElements.Items.Clear();
             ltv_PathElements.View = View.Details;
+            ltv_PathElements.HoverSelection = true;
 
             // - Show elements
             foreach (DataRow row in PatchCheck.AnalyseResultTable.Rows)
@@ -235,12 +247,6 @@ namespace PathCheck
                     item.SubItems[2].ForeColor = Color.Black;
                 }
 
-
-                if (item.SubItems[0].Text == Convert.ToInt32(PathChecks.ElementType.Directory).ToString())
-                {
-                    item.SubItems[1].ForeColor = Color.Blue;
-                    item.SubItems[1].Font = new Font(item.SubItems[1].Font.Name, item.SubItems[1].Font.SizeInPoints, FontStyle.Underline);
-                }
 
                 // Show All Elements
                 if (opt_AllElements.Checked)

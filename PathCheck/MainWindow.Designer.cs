@@ -68,11 +68,13 @@ namespace PathCheck
             // lbl_SelectedDir
             // 
             this.lbl_SelectedDir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_SelectedDir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbl_SelectedDir.Location = new System.Drawing.Point(12, 37);
             this.lbl_SelectedDir.Name = "lbl_SelectedDir";
             this.lbl_SelectedDir.Size = new System.Drawing.Size(1271, 29);
             this.lbl_SelectedDir.TabIndex = 0;
             this.lbl_SelectedDir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_SelectedDir.Click += new System.EventHandler(this.lbl_SelectedDir_Click);
             // 
             // btn_SelectDir
             // 
@@ -102,12 +104,14 @@ namespace PathCheck
             this.col_Path,
             this.col_Length,
             this.col_State});
+            this.ltv_PathElements.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ltv_PathElements.FullRowSelect = true;
             this.ltv_PathElements.GridLines = true;
             this.ltv_PathElements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ltv_PathElements.HideSelection = false;
             this.ltv_PathElements.Location = new System.Drawing.Point(12, 78);
             this.ltv_PathElements.Name = "ltv_PathElements";
+            this.ltv_PathElements.ShowItemToolTips = true;
             this.ltv_PathElements.Size = new System.Drawing.Size(1070, 654);
             this.ltv_PathElements.TabIndex = 3;
             this.ltv_PathElements.UseCompatibleStateImageBehavior = false;
@@ -117,6 +121,7 @@ namespace PathCheck
             // col_Type
             // 
             this.col_Type.Text = "Type";
+            this.col_Type.Width = 0;
             // 
             // col_Path
             // 
@@ -197,7 +202,7 @@ namespace PathCheck
             // btn_Update
             // 
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_Update.Location = new System.Drawing.Point(1088, 295);
+            this.btn_Update.Location = new System.Drawing.Point(1088, 315);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(232, 31);
             this.btn_Update.TabIndex = 8;
