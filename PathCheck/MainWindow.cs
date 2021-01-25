@@ -1,11 +1,11 @@
-﻿using PathCheck.Properties;
-using System;
+﻿using System;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using PathCheck.Properties;
 
 namespace PathCheck
 {
@@ -214,7 +214,7 @@ namespace PathCheck
             // - Begin Update process
             ltv_PathElements.BeginUpdate();
 
-            // - Config listview
+            // - Config ListView
             ltv_PathElements.Items.Clear();
             ltv_PathElements.View = View.Details;
             ltv_PathElements.HoverSelection = true;

@@ -108,7 +108,7 @@ namespace PathCheck
             CriticalElementsCount = 0;
             ExceededElementsCount = 0;
 
-            // Get table of elements
+            // Get all elements
             GetAllFiles(selectedDir);
             GetAllSubDirElements(selectedDir);
 
@@ -117,23 +117,23 @@ namespace PathCheck
             {
                 ElementLength lengthState = ElementLength.OK;
 
-                if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < criticalLength)
+                if (Convert.ToInt32(AnalyseResultTable.Rows[i]["ElementLength"]) < criticalLength)
                 {
                     lengthState = ElementLength.OK;
                 }
-                else if ((Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= criticalLength) 
-                      && (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) < exceededLength)) 
+                else if ((Convert.ToInt32(AnalyseResultTable.Rows[i]["ElementLength"]) >= criticalLength) 
+                      && (Convert.ToInt32(AnalyseResultTable.Rows[i]["ElementLength"]) < exceededLength)) 
                 {
                     lengthState = ElementLength.Critical;
                     CriticalElementsCount++;
                 }
-                else if (Convert.ToInt32(AnalyseResultTable.Rows[i][2]) >= exceededLength)
+                else if (Convert.ToInt32(AnalyseResultTable.Rows[i]["ElementLength"]) >= exceededLength)
                 {
                     lengthState = ElementLength.Exceeded;
                     ExceededElementsCount++;
                 }
 
-                AnalyseResultTable.Rows[i][3] = lengthState;
+                AnalyseResultTable.Rows[i]["ElementState"] = lengthState;
             }
         }
 
@@ -144,6 +144,11 @@ namespace PathCheck
         /// <param name="selectedDir"></param>
         private void GetAllFiles(string selectedDir)
         {
+            if (selectedDir == null)
+            {
+                return;
+            }
+
             string[] files = Directory.GetFiles(selectedDir);
             foreach (string file in files)
             {
@@ -164,9 +169,7 @@ namespace PathCheck
                 return;
             }
 
-
             string[] directories = Directory.GetDirectories(selectedDir);
-
             foreach (string directory in directories)
             {
                 try
