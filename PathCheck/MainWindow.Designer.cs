@@ -406,6 +406,7 @@ namespace PathCheck
             this.mnu_File_Submenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnu_File_Quit});
             this.mnu_File_Submenu.Name = "mnu_File_Quit";
+            this.mnu_File_Submenu.OwnerItem = this.mnu_File;
             this.mnu_File_Submenu.Size = new System.Drawing.Size(107, 28);
             this.mnu_File_Submenu.Text = "Quit";
             this.mnu_File_Submenu.Click += new System.EventHandler(this.mnu_File_Submenu_Click);

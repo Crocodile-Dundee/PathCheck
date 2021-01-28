@@ -30,7 +30,6 @@ namespace PathCheck
             InitializeComponent();
         }
 
-
         /// <summary>
         /// Form load
         /// </summary>
