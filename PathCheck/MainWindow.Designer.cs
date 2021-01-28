@@ -29,6 +29,7 @@ namespace PathCheck
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbl_SelectedDir = new System.Windows.Forms.Label();
             this.btn_SelectDir = new System.Windows.Forms.Button();
             this.lbl_SelectedDir_Tag = new System.Windows.Forms.Label();
@@ -59,17 +60,27 @@ namespace PathCheck
             this.btn_SaveSettings = new System.Windows.Forms.Button();
             this.grp_Settings = new System.Windows.Forms.GroupBox();
             this.grp_Result = new System.Windows.Forms.GroupBox();
+            this.mnu_File = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_File_Submenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnu_File_Quit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Help = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Help_Submenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnu_Help_About = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnu_Strip = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ExceededPathLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CriticalPathLength)).BeginInit();
             this.grp_Settings.SuspendLayout();
             this.grp_Result.SuspendLayout();
+            this.mnu_File_Submenu.SuspendLayout();
+            this.mnu_Help_Submenu.SuspendLayout();
+            this.mnu_Strip.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_SelectedDir
             // 
             this.lbl_SelectedDir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_SelectedDir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbl_SelectedDir.Location = new System.Drawing.Point(12, 37);
+            this.lbl_SelectedDir.Location = new System.Drawing.Point(10, 62);
             this.lbl_SelectedDir.Name = "lbl_SelectedDir";
             this.lbl_SelectedDir.Size = new System.Drawing.Size(1271, 29);
             this.lbl_SelectedDir.TabIndex = 0;
@@ -79,7 +90,7 @@ namespace PathCheck
             // btn_SelectDir
             // 
             this.btn_SelectDir.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_SelectDir.Location = new System.Drawing.Point(1289, 36);
+            this.btn_SelectDir.Location = new System.Drawing.Point(1289, 61);
             this.btn_SelectDir.Name = "btn_SelectDir";
             this.btn_SelectDir.Size = new System.Drawing.Size(31, 31);
             this.btn_SelectDir.TabIndex = 1;
@@ -91,7 +102,7 @@ namespace PathCheck
             // lbl_SelectedDir_Tag
             // 
             this.lbl_SelectedDir_Tag.AutoSize = true;
-            this.lbl_SelectedDir_Tag.Location = new System.Drawing.Point(12, 9);
+            this.lbl_SelectedDir_Tag.Location = new System.Drawing.Point(12, 38);
             this.lbl_SelectedDir_Tag.Name = "lbl_SelectedDir_Tag";
             this.lbl_SelectedDir_Tag.Size = new System.Drawing.Size(131, 20);
             this.lbl_SelectedDir_Tag.TabIndex = 2;
@@ -109,10 +120,10 @@ namespace PathCheck
             this.ltv_PathElements.GridLines = true;
             this.ltv_PathElements.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ltv_PathElements.HideSelection = false;
-            this.ltv_PathElements.Location = new System.Drawing.Point(12, 78);
+            this.ltv_PathElements.Location = new System.Drawing.Point(12, 101);
             this.ltv_PathElements.Name = "ltv_PathElements";
             this.ltv_PathElements.ShowItemToolTips = true;
-            this.ltv_PathElements.Size = new System.Drawing.Size(1070, 654);
+            this.ltv_PathElements.Size = new System.Drawing.Size(1070, 631);
             this.ltv_PathElements.TabIndex = 3;
             this.ltv_PathElements.UseCompatibleStateImageBehavior = false;
             this.ltv_PathElements.View = System.Windows.Forms.View.Details;
@@ -202,7 +213,7 @@ namespace PathCheck
             // btn_Update
             // 
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_Update.Location = new System.Drawing.Point(1088, 317);
+            this.btn_Update.Location = new System.Drawing.Point(1088, 335);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(232, 31);
             this.btn_Update.TabIndex = 8;
@@ -330,9 +341,9 @@ namespace PathCheck
             // lbl_LoadingHint
             // 
             this.lbl_LoadingHint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbl_LoadingHint.Location = new System.Drawing.Point(12, 78);
+            this.lbl_LoadingHint.Location = new System.Drawing.Point(12, 101);
             this.lbl_LoadingHint.Name = "lbl_LoadingHint";
-            this.lbl_LoadingHint.Size = new System.Drawing.Size(1070, 654);
+            this.lbl_LoadingHint.Size = new System.Drawing.Size(1070, 631);
             this.lbl_LoadingHint.TabIndex = 22;
             this.lbl_LoadingHint.Text = "Loading Directory...";
             this.lbl_LoadingHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -356,7 +367,7 @@ namespace PathCheck
             this.grp_Settings.Controls.Add(this.nud_ExceededPathLength);
             this.grp_Settings.Controls.Add(this.lbl_chars1);
             this.grp_Settings.Controls.Add(this.lbl_chars0);
-            this.grp_Settings.Location = new System.Drawing.Point(1088, 78);
+            this.grp_Settings.Location = new System.Drawing.Point(1088, 101);
             this.grp_Settings.Name = "grp_Settings";
             this.grp_Settings.Size = new System.Drawing.Size(232, 215);
             this.grp_Settings.TabIndex = 24;
@@ -375,27 +386,86 @@ namespace PathCheck
             this.grp_Result.Controls.Add(this.lbl_Total_Count);
             this.grp_Result.Controls.Add(this.lbl_Exceeded_Count);
             this.grp_Result.Controls.Add(this.lbl_Critical_Count);
-            this.grp_Result.Location = new System.Drawing.Point(1088, 375);
+            this.grp_Result.Location = new System.Drawing.Point(1088, 395);
             this.grp_Result.Name = "grp_Result";
-            this.grp_Result.Size = new System.Drawing.Size(232, 358);
+            this.grp_Result.Size = new System.Drawing.Size(232, 338);
             this.grp_Result.TabIndex = 25;
             this.grp_Result.TabStop = false;
             this.grp_Result.Text = "Result";
+            // 
+            // mnu_File
+            // 
+            this.mnu_File.DropDown = this.mnu_File_Submenu;
+            this.mnu_File.Name = "mnu_File";
+            this.mnu_File.Size = new System.Drawing.Size(46, 24);
+            this.mnu_File.Text = "File";
+            // 
+            // mnu_File_Submenu
+            // 
+            this.mnu_File_Submenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnu_File_Submenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnu_File_Quit});
+            this.mnu_File_Submenu.Name = "mnu_File_Quit";
+            this.mnu_File_Submenu.Size = new System.Drawing.Size(107, 28);
+            this.mnu_File_Submenu.Text = "Quit";
+            this.mnu_File_Submenu.Click += new System.EventHandler(this.mnu_File_Submenu_Click);
+            // 
+            // mnu_File_Quit
+            // 
+            this.mnu_File_Quit.Name = "mnu_File_Quit";
+            this.mnu_File_Quit.Size = new System.Drawing.Size(106, 24);
+            this.mnu_File_Quit.Text = "Quit";
+            // 
+            // mnu_Help
+            // 
+            this.mnu_Help.DropDown = this.mnu_Help_Submenu;
+            this.mnu_Help.Name = "mnu_Help";
+            this.mnu_Help.Size = new System.Drawing.Size(55, 24);
+            this.mnu_Help.Text = "Help";
+            // 
+            // mnu_Help_Submenu
+            // 
+            this.mnu_Help_Submenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnu_Help_Submenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnu_Help_About});
+            this.mnu_Help_Submenu.Name = "contextMenuStrip1";
+            this.mnu_Help_Submenu.OwnerItem = this.mnu_Help;
+            this.mnu_Help_Submenu.Size = new System.Drawing.Size(120, 28);
+            this.mnu_Help_Submenu.Click += new System.EventHandler(this.mnu_Help_Submenu_Click);
+            // 
+            // mnu_Help_About
+            // 
+            this.mnu_Help_About.Name = "mnu_Help_About";
+            this.mnu_Help_About.Size = new System.Drawing.Size(119, 24);
+            this.mnu_Help_About.Text = "About";
+            // 
+            // mnu_Strip
+            // 
+            this.mnu_Strip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mnu_Strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnu_File,
+            this.mnu_Help});
+            this.mnu_Strip.Location = new System.Drawing.Point(0, 0);
+            this.mnu_Strip.Name = "mnu_Strip";
+            this.mnu_Strip.Size = new System.Drawing.Size(1332, 28);
+            this.mnu_Strip.TabIndex = 26;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1332, 753);
+            this.Controls.Add(this.mnu_Strip);
             this.Controls.Add(this.grp_Result);
             this.Controls.Add(this.grp_Settings);
             this.Controls.Add(this.btn_Update);
             this.Controls.Add(this.ltv_PathElements);
             this.Controls.Add(this.lbl_SelectedDir_Tag);
             this.Controls.Add(this.btn_SelectDir);
-            this.Controls.Add(this.lbl_SelectedDir);
             this.Controls.Add(this.lbl_LoadingHint);
+            this.Controls.Add(this.lbl_SelectedDir);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MainMenuStrip = this.mnu_Strip;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -407,6 +477,10 @@ namespace PathCheck
             this.grp_Settings.PerformLayout();
             this.grp_Result.ResumeLayout(false);
             this.grp_Result.PerformLayout();
+            this.mnu_File_Submenu.ResumeLayout(false);
+            this.mnu_Help_Submenu.ResumeLayout(false);
+            this.mnu_Strip.ResumeLayout(false);
+            this.mnu_Strip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -444,6 +518,13 @@ namespace PathCheck
         private System.Windows.Forms.Button btn_SaveSettings;
         private System.Windows.Forms.GroupBox grp_Settings;
         private System.Windows.Forms.GroupBox grp_Result;
+        private System.Windows.Forms.ToolStripMenuItem mnu_File;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Help;
+        private System.Windows.Forms.ContextMenuStrip mnu_Help_Submenu;
+        private System.Windows.Forms.ToolStripMenuItem mnu_Help_About;
+        private System.Windows.Forms.MenuStrip mnu_Strip;
+        private System.Windows.Forms.ContextMenuStrip mnu_File_Submenu;
+        private System.Windows.Forms.ToolStripMenuItem mnu_File_Quit;
     }
 }
 

@@ -49,7 +49,6 @@ namespace PathCheck
         private void MainWindow_Load(object sender, EventArgs e)
         {
             // Form
-            this.Text = $"{Assembly.GetExecutingAssembly().GetName().Name} - Version {Assembly.GetEntryAssembly().GetName().Version.Major}.{Assembly.GetEntryAssembly().GetName().Version.Minor}{Assembly.GetEntryAssembly().GetName().Version.Revision}";
             this.Size = new Size(1350, 800);
         }
 
@@ -57,6 +56,30 @@ namespace PathCheck
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         // Controls
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+        /// <summary>
+        /// Menu: File - Quit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mnu_File_Submenu_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        
+        /// <summary>
+                 /// Menu: Help - About
+                 /// </summary>
+                 /// <param name="sender"></param>
+                 /// <param name="e"></param>
+        private void mnu_Help_Submenu_Click(object sender, EventArgs e)
+        {
+            using (AboutWindow AboutWin = new AboutWindow())
+            {
+                AboutWin.ShowDialog();
+            }
+        }
 
         /// <summary>
         /// Button: Select Directory to analyse
@@ -282,7 +305,6 @@ namespace PathCheck
             grp_Result.Enabled = true;
             Application.DoEvents();
         }
-
 
     }
 }

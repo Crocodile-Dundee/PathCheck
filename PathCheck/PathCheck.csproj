@@ -9,7 +9,17 @@
     <Company />
     <Description>Tool to check the length of all elements within a selected directory.</Description>
     <RepositoryUrl>https://github.com/Crocodile-Dundee/PathCheck.git</RepositoryUrl>
+    <ApplicationIcon>Crocodile.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Lib_AboutApp">
+      <HintPath>..\..\Projekte FMComputing\$ Libs\Lib_AboutApp\Lib_AboutApp\bin\Release\Lib_AboutApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Lib_AboutEnv">
+      <HintPath>..\..\Projekte FMComputing\$ Libs\Lib_AboutEnv\Lib_AboutEnv\bin\Release\Lib_AboutEnv.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
