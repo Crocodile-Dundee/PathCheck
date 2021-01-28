@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
-using Lib_AboutApp;
-using Lib_AboutEnv;
 
 namespace PathCheck
 {
